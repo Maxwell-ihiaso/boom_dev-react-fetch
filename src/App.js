@@ -26,7 +26,7 @@ function App() {
       contentRef.current.scrollHeight
     ) {
       const button = document.querySelector("button");
-      button.removeAttribute("disabled");
+      button?.removeAttribute("disabled");
     }
   };
 
@@ -40,12 +40,7 @@ function App() {
     return () => container.removeEventListener("scroll", handleScroll);
   }, []);
 
-  return (
-    <div className="App">
-      <Document ref={contentRef} content={content} />
-      <button disabled>I Agree</button>
-    </div>
-  );
+  return <Document ref={contentRef} content={content} />;
 }
 
 export default App;

@@ -10,10 +10,13 @@ const container = {
 const Document = React.forwardRef(
   ({ title = "Terms and Conditions", content = "" }, ref) => {
     return (
-      <div ref={ref} style={container}>
+      <>
         <h1 className="title">{title}</h1>
-        <p className="content">{content}</p>
-      </div>
+        <div ref={ref} style={container}>
+          <p className="content">{content}</p>
+        </div>
+        <button disabled>I Agree</button>
+      </>
     );
   }
 );
