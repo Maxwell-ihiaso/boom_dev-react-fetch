@@ -31,7 +31,7 @@ function App() {
   };
 
   /**
-   * listen to scroll to call handleScroll function
+   * listen to onScroll to call handleScroll function
    * also clear side effect
    */
   useEffect(() => {
@@ -40,7 +40,11 @@ function App() {
     return () => container.removeEventListener("scroll", handleScroll);
   }, []);
 
-  return <Document ref={contentRef} content={content} />;
+  return (
+    <div className="App">
+      <Document ref={contentRef} content={content} />
+    </div>
+  );
 }
 
 export default App;
