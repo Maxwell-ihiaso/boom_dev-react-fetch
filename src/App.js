@@ -1,19 +1,25 @@
+import { useEffect, useState } from "react/cjs/react.development";
 import "./App.css";
+import Document from "./Document";
 
 function App() {
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    const url = `https://jaspervdj.be/lorem-markdownum/markdown.txt`;
+    fetch(url)
+      .then((response) => response.text())
+      .then((data) => setContent(data));
+  }, []);
+
   return (
     <div className="App">
-      <section class="hero">
-        <div class="hero-body">
-          <p class="title">A React Task</p>
-          <p class="subtitle">by Boom.dev</p>
+      <section className="hero">
+        <div className="hero-body">
+          <Document content={content} />
+          <button disabled>I Agree</button>
         </div>
       </section>
-      <div class="container is-fullhd">
-        <div class="notification">
-          Edit the <code>./src</code> folder to add components.
-        </div>
-      </div>
     </div>
   );
 }
