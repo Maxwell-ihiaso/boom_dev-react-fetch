@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState } from "react";
 const container = {
   border: "1px solid Black",
   padding: "1rem",
@@ -8,38 +8,28 @@ const container = {
 };
 
 const Document = ({ title = "", content = "" }) => {
-  const contentRef = useRef();
+  const [isBottom, setIsBottom] = useState(false);
 
   /**
    * Detect scroll and enable button on scroll end
    */
-  const handleScroll = () => {
+  const handleScroll = (e) => {
+    const scrollableDiv = e.target;
     if (
-      contentRef.current.offsetHeight + contentRef.current.scrollTop >=
-      contentRef.current.scrollHeight
+      scrollableDiv.offsetHeight + scrollableDiv.scrollTop >=
+      scrollableDiv.scrollHeight
     ) {
-      const button = document.querySelector("button");
-      button.removeAttribute("disabled");
+      setIsBottom(true);
     }
   };
-
-  /**
-   * listen to onScroll to call handleScroll function
-   * also clear side effect
-   */
-  useEffect(() => {
-    const container = contentRef.current;
-    container.addEventListener("scroll", handleScroll);
-    return () => container.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <>
       <h1 className="title">{title}</h1>
-      <div ref={contentRef} style={container}>
+      <div onScroll={(e) => handleScroll(e)} style={container}>
         <p className="content">{content}</p>
       </div>
-      <button disabled>I Agree</button>
+      <button disabled={isBottom ? false : true}>I Agree</button>
     </>
   );
 };
