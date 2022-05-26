@@ -8,7 +8,7 @@ const container = {
 };
 
 const Document = ({ title = "", content = "" }) => {
-  const [isBottom, setIsBottom] = useState(false);
+  const [isDisasbled, setIsDisabled] = useState(true);
 
   /**
    * Detect scroll and enable button on scroll end
@@ -19,18 +19,18 @@ const Document = ({ title = "", content = "" }) => {
       scrollableDiv.offsetHeight + scrollableDiv.scrollTop >=
       scrollableDiv.scrollHeight
     ) {
-      setIsBottom(true);
+      setIsDisabled(false);
     }
   };
 
   return (
-    <>
+    <div className="content">
       <h1 className="title">{title}</h1>
       <div onScroll={(e) => handleScroll(e)} style={container}>
-        <p className="content">{content}</p>
+        <p>{content}</p>
       </div>
-      <button disabled={isBottom ? false : true}>I Agree</button>
-    </>
+      <button disabled={isDisasbled}>I Agree</button>
+    </div>
   );
 };
 
